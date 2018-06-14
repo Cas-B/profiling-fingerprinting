@@ -1,3 +1,5 @@
+from tqdm import tqdm
+
 class dataReader:
 
 	def __init__(self, filePath):
@@ -5,7 +7,7 @@ class dataReader:
 
 		with open(filePath, 'r') as flowData:
 			count = 0
-			for line in flowData:
+			for line in tqdm(flowData):
 				if count == 0:
 					count += 1
 					continue
