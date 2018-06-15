@@ -13,7 +13,7 @@ listOfIPs = dict()
 for i in tqdm(range(len(reader))):
 	ip = reader[i][3].split(":")[0]
 	cms.add(ip)
-	if listOfIPs.get(ip) is None:
+	if listOfIPs.get(ip) is None and ip is not "147.32.84.165":
 		listOfIPs[ip] = 1
 listOfIPs = list(listOfIPs.keys())
 
@@ -23,10 +23,9 @@ for i in tqdm(range(len(listOfIPs))):
 	
 #Getting the top 10 most frequent values, taking into account the removal of the host the detection took place on.
 listOfIPs.sort(key=lambda x: x[1], reverse=True)
-listOfIPs = [listOfIPs[i] for i in range(11)]
-del listOfIPs[0]
+listOfIPs = [listOfIPs[i] for i in range(10)]
 
 for i in range(10):
 	frequency = listOfIPs[i][1]/len(reader) * 100
-	print listOfIPs[i][0] + " " + str(frequency)
+	print (listOfIPs[i][0] + " " + str(frequency))
 
