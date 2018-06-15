@@ -11,10 +11,14 @@ cms.generate_hashkeys()
 listOfIPs = dict()
 
 for i in tqdm(range(len(reader))):
-	ip = reader[i][3].split(":")[0]
-	cms.add(ip)
-	if listOfIPs.get(ip) is None and ip is not "147.32.84.165":
-		listOfIPs[ip] = 1
+	source_ip = reader[i][3].split(":")[0]
+	destination_ip = reader[i][4].split(":")[0]
+	cms.add(source_ip)
+	cms.add(destination_ip)
+	if listOfIPs.get(source_ip) is None and source_ip != "147.32.84.165":
+		listOfIPs[source_ip] = 1
+	if listOfIPs.get(destination_ip) is None and destination_ip != "147.32.84.165":
+		listOfIPs[destination_ip] = 1
 listOfIPs = list(listOfIPs.keys())
 
 #Create frequencies
@@ -26,6 +30,7 @@ listOfIPs.sort(key=lambda x: x[1], reverse=True)
 listOfIPs = [listOfIPs[i] for i in range(10)]
 
 for i in range(10):
-	frequency = listOfIPs[i][1]/len(reader) * 100
+	frequency = listOfIPs[i][1]/(2*len(reader)) * 100
 	print (listOfIPs[i][0] + " " + str(frequency))
+	print (listOfIPs[i][1])
 
