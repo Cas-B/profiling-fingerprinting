@@ -12,27 +12,33 @@ def updateDictElementFreq(freqDict, element):
         freqDict[element] = 1
 
 ## Calculate the frequency of the other IP addresses ##
-def findIPFreqFromData(data):
+def findIPFreqFromData(data, host_ip):
     freqDict = dict()
     for row in tqdm(data):
-        updateDictElementFreq(freqDict, row[3])
-        updateDictElementFreq(freqDict, row[4])
+        src_ip = row[3].split(":")[0]
+        dest_ip = row[4].split(":")[0]
+
+        if src_ip != host_ip:
+            updateDictElementFreq(freqDict, row[3].split(":")[0])
+        if dest_ip != host_ip:
+            updateDictElementFreq(freqDict, row[4].split(":")[0])
 
     return freqDict
 
 print("Reading in the data")
 data = dataReader("test.labeled").get_data()
+host_ip = "147.32.84.165"
 
 print("Calculating the actual frequencies of other IP addresses")
 # Find the actual frequency of the other IP addresses.
-freq = findIPFreqFromData(data)
+freq = findIPFreqFromData(data, host_ip)
 
-frequent_ips = sorted(freq.items(), key=operator.itemgetter(1), reverse=True) # sort the dictionary by values (this returns a list of tuples).
-print (frequent_ips[0:10])
+print(sorted(freq.items(), key=operator.itemgetter(1), reverse=True)[0:10]) # sort the dictionary by values (this returns a list of tuples).
+
 
 print ("Sampling data using Min-Wise Sampling")
-reservoir_size = math.floor(0.0001 * len(data * 2))
-mws = minWiseSampling(int(reservoir_size))
+reservoir_size = math.floor(0.1 * len(data * 2))
+mws = minWiseSampling(int(reservoir_size), host_ip)
 mws.sample(data)
 sampled_elements = mws.get_elements()
 sampled_elements_freq = dict()

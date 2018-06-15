@@ -7,7 +7,8 @@ from tqdm import tqdm
 class minWiseSampling:
 
     ############# Constructor ##################
-    def __init__(self, reservoir_size):
+    def __init__(self, reservoir_size, host_ip):
+        self.host_ip = host_ip
         self.elements_dict = dict() # dictionary to store the k elements with the smallest random tags.
         self.reservoir_size = reservoir_size
 
@@ -19,13 +20,18 @@ class minWiseSampling:
             # create tags in the interval of [0,1]
             tag = random.uniform(0, 1)
             tag2 = random.uniform(0, 1)
-            temp_dict[tag] = row[3]
-            temp_dict[tag2] = row[4]
+            src_ip = row[3].split(":")[0]
+            dest_ip = row[4].split(":")[0]
+            if src_ip != self.host_ip:
+                temp_dict[tag] = src_ip
+            if dest_ip != self.host_ip:
+                temp_dict[tag2] = dest_ip
 
         print("Selecting the k elements with the lowest tag")
         for tag in tqdm(sorted(temp_dict.keys())):
             if len(self.elements_dict) < self.reservoir_size:
                 self.elements_dict[tag] = temp_dict[tag]
 
+    # Get the k sample elements.
     def get_elements(self):
         return self.elements_dict
