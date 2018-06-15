@@ -1,22 +1,24 @@
 from cms import count_min_sketch
 from datareader import dataReader
+from tqdm import tqdm
 
 #Setup
-reader = dataReader("traffic_data43_truncated.labeled").get_data()
-cms = count_min_sketch(150, 50)
+reader = dataReader("capture.labeled").get_data()
+cms = count_min_sketch(15, 50)
 cms.generate_hashkeys()
 
 #Create count-min-sketch
-listOfIPs = []
+listOfIPs = dict()
 
-for i in range(len(reader)):
+for i in tqdm(range(len(reader))):
 	ip = reader[i][3].split(":")[0]
 	cms.add(ip)
-	if ip not in listOfIPs:
-		listOfIPs.append(ip)
+	if listOfIPs.get(ip) is None:
+		listOfIPs[ip] = 1
+listOfIPs = list(listOfIPs.keys())
 
 #Create frequencies
-for i in range(len(listOfIPs)):
+for i in tqdm(range(len(listOfIPs))):
 	listOfIPs[i] = (listOfIPs[i], cms.query(listOfIPs[i]))
 	
 #Getting the top 10 most frequent values, taking into account the removal of the host the detection took place on.
