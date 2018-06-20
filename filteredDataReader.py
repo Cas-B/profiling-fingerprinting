@@ -56,6 +56,6 @@ class dataReaderFiltered:
 		except:
 			print("Your pc sucks!")
 
-reader = dataReaderFiltered("capture2.labeled")
-reader.write_to_file("test2.labeled")
+reader = dataReaderFiltered("capture51.labeled")
+reader.write_to_file("filtered51.labeled")
 
