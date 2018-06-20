@@ -46,12 +46,12 @@ class dataHandler:
 		return ip_data
 
 	#Returns all the data which has as source of destionation ip-address the variable `ip` from the provided data
-	def get_ip_data(self, ip, data):
-		ip_data = []
-		for i in tqdm(range(len(data))):
-			if data[i][3].split(":")[0] == str(ip) or data[i][4].split(":")[0] == str(ip):
-				ip_data.append(data[i])
-		return ip_data
+	#def get_ip_data(self, ip, data):
+	#	ip_data = []
+	#	for i in tqdm(range(len(data))):
+	#		if data[i][3].split(":")[0] == str(ip) or data[i][4].split(":")[0] == str(ip):
+	#			ip_data.append(data[i])
+	#	return ip_data
 
 	def get_original_data(self):
 		return self.original_data
