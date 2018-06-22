@@ -35,6 +35,6 @@ for i in range(len(data)):
 
 
 #Write the data to a file
-ip_specific = handler.get_ip_data("147.32.84.165", data)
+ip_specific = handler.get_ip_specific_data("147.32.84.165", data)
 handler.write_to_file("discretised_data.labeled", data)
 handler.write_to_file("discretised_ip_data.labeled", ip_specific)

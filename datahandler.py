@@ -46,12 +46,12 @@ class dataHandler:
 		return ip_data
 
 	#Returns all the data which has as source of destionation ip-address the variable `ip` from the provided data
-	#def get_ip_data(self, ip, data):
-	#	ip_data = []
-	#	for i in tqdm(range(len(data))):
-	#		if data[i][3].split(":")[0] == str(ip) or data[i][4].split(":")[0] == str(ip):
-	#			ip_data.append(data[i])
-	#	return ip_data
+	def get_ip_specific_data(self, ip, data):
+		ip_data = []
+		for i in tqdm(range(len(data))):
+			if data[i][3].split(":")[0] == str(ip) or data[i][4].split(":")[0] == str(ip):
+				ip_data.append(data[i])
+		return ip_data
 
 	def get_original_data(self):
 		return self.original_data
@@ -62,35 +62,32 @@ class dataHandler:
 	#Write all the arrays to a file
 	def write_original_data_to_file(self, filePath):
 		try:
-			openedFile = open(filePath, "w") 
+			openedFile = open(filePath, "w")
 			for i in tqdm(range(len(self.original_data))):
 				openedFile.write(str(self.original_data[i]))
 				openedFile.write("\n")
-			openedFile.close() 
+			openedFile.close()
 		except:
 			print("Your pc sucks!")
 
 	#Write the data without background flows to a file
 	def write_filtered_data_to_file(self, filePath):
 		try:
-			openedFile = open(filePath, "w") 
+			openedFile = open(filePath, "w")
 			for i in tqdm(range(len(self.filtered_data))):
 				openedFile.write(str(self.filtered_data[i]))
 				openedFile.write("\n")
-			openedFile.close() 
+			openedFile.close()
 		except:
 			print("Your pc sucks!")
 
 	#Write data to a file
 	def write_to_file(self, filePath, data):
 		try:
-			openedFile = open(filePath, "w") 
+			openedFile = open(filePath, "w")
 			for i in tqdm(range(len(data))):
 				openedFile.write(str(data[i]))
 				openedFile.write("\n")
-			openedFile.close() 
+			openedFile.close()
 		except:
 			print("Your pc sucks!")
-
-
-
