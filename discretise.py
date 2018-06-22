@@ -5,7 +5,7 @@ from saxpy.znorm import znorm
 from saxpy.sax import ts_to_string
 from saxpy.alphabet import cuts_for_asize
 
-def discretize(data, number_of_bins):
+def discretise(data, number_of_bins):
 	return ts_to_string(znorm(data), cuts_for_asize(number_of_bins))
 
 #Read in the data
@@ -19,9 +19,9 @@ bytes = [float(data[i][8]) for i in range(len(data))]
 
 
 #Discretize the data
-discretised_durations = discretize(durations, 8)
-discretised_packets = discretize(durations, 10)
-discretised_bytes = discretize(durations, 20)
+discretised_durations = discretise(durations, 8)
+discretised_packets = discretise(durations, 10)
+discretised_bytes = discretise(durations, 20)
 
 
 #Store the discretization results in the original data
@@ -30,6 +30,7 @@ for i in range(len(data)):
 	item[1] = discretised_durations[i]
 	item[7] = discretised_packets[i]
 	item[8] = discretised_bytes[i]
+	item.append(data[i][2] + discretised_bytes[i])
 	data[i] = item
 
 
