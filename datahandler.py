@@ -30,6 +30,19 @@ class dataHandler:
 					flow_type = splittedLine[13].replace("\n", "")
 					self.original_data.append([splittedLine[0], splittedLine[1], splittedLine[2], splittedLine[3],splittedLine[6],splittedLine[8],splittedLine[9],splittedLine[10],splittedLine[11], splittedLine[12], flow_type])
 
+	#Reads processed data
+	def read_processed_data(filePath):
+		dataList = []
+		with open(filePath, 'r') as flowData:
+			for line in tqdm(flowData):
+				splittedLine = line.replace("'", "")
+				splittedLine = splittedLine.replace("[", "")
+				splittedLine = splittedLine.replace("]", "")
+				splittedLine = splittedLine.replace(" ", "")
+				splittedLine = splittedLine.split(",")
+				dataList.append(splittedLine)
+		return dataList
+
 
 	#Filters out all data with a label 'Background'
 	def filter_background_data(self):
