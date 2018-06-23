@@ -63,7 +63,7 @@ class dataHandler:
 		ip_data = []
 		for i in tqdm(range(len(data))):
 			if data[i][3].split(":")[0] == str(ip):
-				ip_data.append(data[i])
+	 			ip_data.append(data[i])
 		return ip_data
 
 	def get_original_data(self):
