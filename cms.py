@@ -27,4 +27,3 @@ class count_min_sketch():
 	def query(self, item):
 		column_values = [self.matrix[i][int(mmh3.hash(item, self.hashkeys[i])) % self.d] for i in range(self.w)]
 		return min(column_values)
-			

@@ -1,8 +1,8 @@
-from datareader import  dataReader
 from minwisesampling import minWiseSampling
 import operator
 from tqdm import tqdm
 import math
+from datahandler import dataHandler
 
 ## Update the frequency of an element in the dictionary ##
 def updateDictElementFreq(freqDict, element):
@@ -26,7 +26,9 @@ def findIPFreqFromData(data, host_ip):
     return freqDict
 
 print("Reading in the data")
-data = dataReader("test.labeled").get_data()
+data_handler = dataHandler()
+data_handler.read_data("capture43.labeled")
+data = data_handler.get_original_data()
 host_ip = "147.32.84.165"
 
 print("Calculating the actual frequencies of other IP addresses")
