@@ -4,10 +4,11 @@
 sudo -i python3 -m pip install --upgrade pip
 sudo python3 -m pip install -U pip
 sudo python3 -m pip install -U numpy
+sudo python3 -m pip install -U saxpy
 sudo python3 -m pip install -U matplotlib
 sudo python3 -m pip install -U tqdm
 sudo python3 -m pip install -U mmh3
-sudo apt-get install python-tk
+sudo apt-get install python3-tk
 
 
 ################################################
