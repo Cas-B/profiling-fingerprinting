@@ -21,7 +21,7 @@ def read_statistics(filePath):
 			duration[splittedLine[1]] = 1
 			src_prt = np.array(splittedLine[3].split(":"))
 			dst_prt = np.array(splittedLine[4].split(":"))
-			
+
 
 			if(len(src_prt) == 2):
 				port[splittedLine[3].split(":")[1]] = 1
@@ -32,7 +32,7 @@ def read_statistics(filePath):
 			packets[splittedLine[7]] = 1
 			bytes[splittedLine[8]] = 1
 			flows[splittedLine[9]] = 1
-		
+
 		print("Statistics")
 		print("Unique number of durations: ", len(duration.keys()))
 		print("Unique number of ports: ", len(port.keys()))
@@ -72,7 +72,6 @@ def statistics_count_protocol(filePath, protocol):
 
 		print("Counted: ",counter)
 
-read_statistics('filtered51.labeled')
-#statistics_count_protocol('filtered51.labeled', "ICMP")
-#statistics_count_protocol('filtered_ip.labeled', "ICMP")
-
+# read_statistics('filtered51.labeled')
+statistics_count_protocol('filtered_data.txt', "ICMP")
+statistics_count_protocol('discretised_ip_data.labeled', "ICMP")
