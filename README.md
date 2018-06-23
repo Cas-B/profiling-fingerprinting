@@ -5,11 +5,15 @@ Group members: Cas Buijs and Clinton Cao
 For this assignment we use the CTU-13 dataset number 43 and number 51.
 
 Information link:
+
 https://mcfp.felk.cvut.cz/publicDatasets/CTU-Malware-Capture-Botnet-43/
+
 https://mcfp.felk.cvut.cz/publicDatasets/CTU-Malware-Capture-Botnet-51/
 
 Download link:
+
 https://mcfp.felk.cvut.cz/publicDatasets/CTU-Malware-Capture-Botnet-43/capture20110811.pcap.netflow.labeled
+
 https://mcfp.felk.cvut.cz/publicDatasets/CTU-Malware-Capture-Botnet-51/capture20110818.pcap.netflow.labeled
 
 # Setup and Running the Python Scripts
