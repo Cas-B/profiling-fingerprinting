@@ -38,37 +38,19 @@ def createTestData(data, other_hosts, data_handler):
 
 ## Evaluate the trained model using the error based method explained in the paper #######
 def evaluateModel(n_grams_training_data, n_grams_test_data):
-    uniqueSequencesTraining = dict()
-    uniqueSequencesTest = dict()
-
-    #Calculating unique ngrams for training data
-    for ngram in n_grams_training_data:
-        if not ngram in uniqueSequencesTraining.keys():
-            uniqueSequencesTraining[ngram] = 1
-
-    #Calculating unique ngrams for test data
-    for ngram in n_grams_test_data:
-        if not ngram in uniqueSequencesTest.keys():
-            uniqueSequencesTest[ngram] = 1
-
-    if len(uniqueSequencesTraining) <= len(uniqueSequencesTest):
-        return computeErrorNgrams(n_grams_training_data, n_grams_test_data, uniqueSequencesTraining, uniqueSequencesTest)
+    if len(n_grams_training_data.keys()) <= len(n_grams_test_data.keys()):
+        return computeErrorNgrams(n_grams_training_data, n_grams_test_data, n_grams_training_data.keys(), n_grams_test_data.keys())
     else:
-        return computeErrorNgrams(n_grams_test_data, n_grams_training_data, uniqueSequencesTest, uniqueSequencesTraining)
-        
+        return computeErrorNgrams(n_grams_test_data, n_grams_training_data, n_grams_test_data.keys(), n_grams_training_data.keys())
 
-    #if len(n_grams_test_data) <= len(uniqueSequencesTest):
-    #    return computeError(n_grams_test_data, n_grams_training_data)
-    #else:
-    #    return computeError(n_grams_training_data, n_grams_test_data)
 
-#### Check if two dictionaries share at least a single key 
+#### Check if two dictionaries share at least a single key
 def checkForSharedKey(ngrams_dict_smaller, ngrams_dict_larger):
     count = 0
-    for ngram in ngrams_dict_smaller.keys():
-        if ngram in ngrams_dict_larger.keys():
+    for ngram in ngrams_dict_smaller:
+        if ngram in ngrams_dict_larger:
             count += 1
-    
+
     if count == 0:
         return 0
     else:
@@ -80,16 +62,8 @@ def computeErrorNgrams(ngrams_dict_count_smaller, ngrams_dict_count_larger, uniq
         return -1
 
     error = 0
-    for ngram in unique_ngrams_smaller.keys():
-        if ngram in unique_ngrams_larger.keys():
-            error += (abs(ngrams_dict_count_smaller[ngram] - ngrams_dict_count_larger[ngram]))
-    return error
-
-#### Compute the error based on what is explained in the paper. #####################
-def computeError(ngrams_dict_count_smaller, ngrams_dict_count_larger):
-    error = 0
-    for ngram in ngrams_dict_count_smaller:
-        if ngram in ngrams_dict_count_larger:
+    for ngram in unique_ngrams_smaller:
+        if ngram in unique_ngrams_larger:
             error += (abs(ngrams_dict_count_smaller[ngram] - ngrams_dict_count_larger[ngram]))
     return error
 
@@ -135,13 +109,13 @@ incorrectly_identified_normal_hosts = []
 for host in tqdm(ngrams_test_data):
     error = evaluateModel(ngrams_training_data, ngrams_test_data[host])
     print("Host: {}, Error: {}".format(host, error))
-    if host in infected_hosts and (error != -1 and error <= 3000):
+    if host in infected_hosts and (error != -1 and error <= 5000):
         correctly_identified_infected_hosts.append(host)
-    elif host in infected_hosts and (error == -1 or error > 3000):
+    elif host in infected_hosts and (error == -1 or error > 5000):
         incorrectly_identified_infected_hosts.append(host)
-    elif host in normal_hosts and (error == -1 or error > 3000):
+    elif host in normal_hosts and (error == -1 or error > 5000):
         correctly_identified_normal_hosts.append(host)
-    elif host in normal_hosts and (error != -1 or error < 3000):
+    elif host in normal_hosts and (error != -1 or error < 5000):
         incorrectly_identified_normal_hosts.append(host)
 
 print("TP: {}".format(len(correctly_identified_infected_hosts)))
