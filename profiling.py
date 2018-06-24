@@ -119,6 +119,6 @@ for host in tqdm(ngrams_test_data):
         incorrectly_identified_normal_hosts.append(host)
 
 print("TP: {}".format(len(correctly_identified_infected_hosts)))
-print("FP: {}".format(len(incorrectly_identified_infected_hosts)))
+print("FP: {}".format(len(incorrectly_identified_normal_hosts)))
 print("TN: {}".format(len(correctly_identified_normal_hosts)))
-print("FN: {}".format(len(incorrectly_identified_normal_hosts)))
+print("FN: {}".format(len(incorrectly_identified_infected_hosts)))
